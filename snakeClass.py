@@ -78,8 +78,8 @@ def plot_seaborn(array_counter, array_score, train):
     plt.figure(figsize=(13,8))
     fit_reg = False if not train else True
     ax = sns.regplot(
-        x=np.array([array_counter])[0],
-        y=np.array([array_score])[0],
+        x=np.array(array_counter),
+        y=np.array(array_score),
         x_jitter=0.1,
         scatter_kws={"color": "#36688D"},
         label='Data',
