@@ -12,7 +12,7 @@ from game import Game
 from player import Player
 
 # from snakeClass import Food, Game, Player
-DEVICE = 'cpu' # 'cuda' if torch.cuda.is_available() else 'cpu'
+DEVICE = 'cuda' # 'cuda' if torch.cuda.is_available() else 'cpu'
 
 class DQNAgent(torch.nn.Module):
     def __init__(self, params):
