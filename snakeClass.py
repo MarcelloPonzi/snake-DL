@@ -14,6 +14,8 @@ from food import Food
 from game import Game
 from player import Player
 
+DEVICE = 'cuda' # 'cuda' if torch.cuda.is_available() else 'cpu'
+
 #################################
 #   Define parameters manually  #
 #################################
@@ -111,8 +113,9 @@ def run(params):
     """
     pygame.init()
     agent = DQNAgent(params)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    agent = agent.to(device)
+    agent = agent.to(DEVICE)
+    print("Il device è:")
+    print(torch.cuda.current_device())
     agent.optimizer = optim.Adam(agent.parameters(), weight_decay=0, lr=params['learning_rate'])
     score_plot = []
     counter_plot = []
