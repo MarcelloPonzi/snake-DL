@@ -14,8 +14,6 @@ from food import Food
 from game import Game
 from player import Player
 
-DEVICE = 'cuda' # 'cuda' if torch.cuda.is_available() else 'cpu'
-
 #################################
 #   Define parameters manually  #
 #################################
@@ -113,7 +111,8 @@ def run(params):
     """
     pygame.init()
     agent = DQNAgent(params)
-    agent = agent.to(DEVICE)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    agent = agent.to(device)
     agent.optimizer = optim.Adam(agent.parameters(), weight_decay=0, lr=params['learning_rate'])
     score_plot = []
     counter_plot = []
@@ -204,9 +203,6 @@ if __name__ == '__main__':
     print("Args", args)
     params['display'] = args.display
     params['speed'] = args.speed
-    if args.bayesianopt:
-        bayesOpt = BayesianOptimizer(params)
-        bayesOpt.optimize_RL()
     if params['train']:
         print("Training...")
         params['load_weights'] = False   # when training, the network is not pre-trained
