@@ -27,13 +27,13 @@ def define_parameters():
     params['first_layer_size'] = 200    # neurons in the first layer
     params['second_layer_size'] = 20   # neurons in the second layer
     params['third_layer_size'] = 50    # neurons in the third layer
-    params['episodes'] = 250          
+    params['episodes'] = 10
     params['memory_size'] = 2500
     params['batch_size'] = 1000
     # Settings
     params['weights_path'] = 'weights/weights.h5'
     params['train'] = True
-    params["test"] = True
+    params["test"] = False
     params['plot_score'] = True
     params['log_path'] = 'logs/scores_' + str(datetime.now().strftime("%Y%m%d%H%M%S")) +'.txt'
     return params
@@ -76,12 +76,11 @@ def plot_seaborn(array_counter, array_score, train):
     sns.set(color_codes=True, font_scale=1.5)
     sns.set_style("white")
     plt.figure(figsize=(13,8))
-    fit_reg = False if train== False else True        
+    fit_reg = False if not train else True
     ax = sns.regplot(
-        np.array([array_counter])[0],
-        np.array([array_score])[0],
-        #color="#36688D",
-        x_jitter=.1,
+        x=np.array([array_counter])[0],
+        y=np.array([array_score])[0],
+        x_jitter=0.1,
         scatter_kws={"color": "#36688D"},
         label='Data',
         fit_reg = fit_reg,
